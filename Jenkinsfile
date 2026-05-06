@@ -1,10 +1,18 @@
 node {
     // Build custom CI image dari Dockerfile
     // docker.build hanya rebuild kalau Dockerfile berubah
-    def ciImage = docker.build(
-        'python-ci:latest',
-        '-f Dockerfile .'
-    )
+    stage('Checkout') {
+        // Tarik kode dari Git ke workspace
+        checkout scm 
+    }
+
+    stage('Build Image') {
+        // Sekarang file Dockerfile sudah ada di workspace
+        def ciImage = docker.build(
+            'python-ci:latest',
+            '-f Dockerfile .'
+        )
+    }
 
     ciImage.inside {
         stage('Build') {
