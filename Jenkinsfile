@@ -1,9 +1,9 @@
 node {
-    // Build custom CI image dari Dockerfile.ci
+    // Build custom CI image dari Dockerfile
     // docker.build hanya rebuild kalau Dockerfile berubah
     def ciImage = docker.build(
         'python-ci:latest',
-        '-f docker/Dockerfile.ci .'
+        '-f Dockerfile .'
     )
 
     ciImage.inside {
