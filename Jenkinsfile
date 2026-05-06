@@ -2,7 +2,7 @@ node {
     docker.image('python:3.9-slim').inside {
         stage('Build') {
             checkout scm
-            sh 'pip install pytest pyinstaller'
+            sh 'pip install --no-cache-dir pytest pyinstaller'
             sh 'python3 -m py_compile sources/add2vals.py sources/calc.py'
         }
 
