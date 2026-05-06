@@ -7,16 +7,12 @@ node {
     }
 
     stage('Test') {
-        // Logika skipStagesAfterUnstable: Cek status sebelum lanjut
-        if (currentBuild.result == 'UNSTABLE') {
-            echo "Skipping Test stage because build is UNSTABLE"
-        } else {
-            try {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
-            } finally {
-                // Pengganti post { always { ... } }
-                junit 'test-reports/results.xml'
-            }
+        sh 'pip3 install pytest'
+        
+        try {
+            sh 'python3 -m pytest --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
+        } finally {
+            junit 'test-reports/results.xml'
         }
     }
 
