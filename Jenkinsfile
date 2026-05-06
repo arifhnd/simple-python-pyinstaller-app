@@ -2,13 +2,12 @@ node {
     docker.image('python:3.9-slim').inside {
         stage('Build') {
             checkout scm
+            sh 'pip install pytest'
             sh 'python3 -m py_compile sources/add2vals.py sources/calc.py'
         }
     }
 
-    stage('Test') {
-        sh 'pip3 install pytest'
-        
+    stage('Test') {        
         try {
             sh 'python3 -m pytest --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
         } finally {
