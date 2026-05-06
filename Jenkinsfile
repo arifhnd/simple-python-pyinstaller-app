@@ -2,28 +2,23 @@ node {
     docker.image('python:3.9-slim').inside {
         stage('Build') {
             checkout scm
-            sh 'pip install pytest'
+            sh 'pip install pytest pyinstaller'
             sh 'python3 -m py_compile sources/add2vals.py sources/calc.py'
         }
-    }
 
-    stage('Test') {        
-        try {
-            sh 'python3 -m pytest --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
-        } finally {
-            junit 'test-reports/results.xml'
+        stage('Test') {
+            try {
+                sh 'python3 -m pytest --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
+            } finally {
+                junit 'test-reports/results.xml'
+            }
         }
-    }
 
-    stage('Deliver') {
-        // Cek lagi status sebelum tahap delivery
-        if (currentBuild.result == 'UNSTABLE' || currentBuild.result == 'FAILURE') {
-            echo "Skipping Deliver stage due to build status: ${currentBuild.result}"
-        } else {
-            sh 'pyinstaller --onefile sources/add2vals.py'
-            
-            // Pengganti post { success { ... } }
-            if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
+        stage('Deliver') {
+            if (currentBuild.result == 'UNSTABLE' || currentBuild.result == 'FAILURE') {
+                echo "Skipping Deliver stage due to build status: ${currentBuild.result}"
+            } else {
+                sh 'pyinstaller --onefile sources/add2vals.py'
                 archiveArtifacts 'dist/add2vals'
             }
         }
