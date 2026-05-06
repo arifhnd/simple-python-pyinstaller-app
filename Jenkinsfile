@@ -18,7 +18,7 @@ node {
             if (currentBuild.result in ['UNSTABLE', 'FAILURE']) {
                 error "Skipping deliver, build is ${currentBuild.result}"
             }
-            sh 'PYTHONPATH=/tmp/pip-packages pyinstaller --onefile sources/add2vals.py'
+            sh 'PYTHONPATH=/tmp/pip-packages python3 -m PyInstaller --onefile sources/add2vals.py'
             archiveArtifacts 'dist/add2vals'
         }
     }
