@@ -1,4 +1,6 @@
 node {
+    def ciImage
+    
     // Build custom CI image dari Dockerfile
     // docker.build hanya rebuild kalau Dockerfile berubah
     stage('Checkout') {
