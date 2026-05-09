@@ -37,6 +37,9 @@ node {
                 junit skipPublishingChecks: true, testResults: 'test-reports/results.xml'
             }
 
+        }
+
+        stage('Manual Approval') {
             input message: 'Test build berhasil dijalankan, Apakah kamu akan lanjut ke tahap deliver? Jika iya, silakan klik Proceed untuk melanjutkan ke tahap deliver. Jika tidak, klik Abort untuk menghentikan proses.'
         }
 
