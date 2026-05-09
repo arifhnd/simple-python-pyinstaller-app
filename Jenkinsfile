@@ -35,6 +35,7 @@ node {
             } finally {
                 // Selalu publish hasil test meskipun ada yang gagal
                 junit 'test-reports/results.xml'
+                message "Test build berhasil dijalankan, Apakah kamu akan lanjut ke tahap deliver? Jika iya, silakan klik 'Proceed' untuk melanjutkan ke tahap deliver. Jika tidak, klik 'Abort' untuk menghentikan proses."
             }
         }
 
@@ -49,6 +50,8 @@ node {
             // Archive binary hasil build
             archiveArtifacts artifacts: 'dist/add2vals', fingerprint: true
             echo 'Artifact archived: dist/add2vals'
+
+            sleep(60)
         }
     }
 }
