@@ -54,7 +54,7 @@ node {
 
             sh '''
                 echo "=== Menjalankan hasil build ==="
-                ./dist/add2vals
+                ./dist/add2vals 5 3
                 echo "=== Selesai ==="
             '''
 
