@@ -52,6 +52,12 @@ node {
             archiveArtifacts artifacts: 'dist/add2vals', fingerprint: true
             echo 'Artifact archived: dist/add2vals'
 
+            sh '''
+                echo "=== Menjalankan hasil build ==="
+                ./dist/add2vals
+                echo "=== Selesai ==="
+            '''
+
             sleep(60)
         }
     }
