@@ -34,7 +34,7 @@ node {
                 '''
             } finally {
                 // Selalu publish hasil test meskipun ada yang gagal
-                junit 'test-reports/results.xml'
+                junit skipPublishingChecks: true, testResults: 'test-reports/results.xml'
                 message "Test build berhasil dijalankan, Apakah kamu akan lanjut ke tahap deliver? Jika iya, silakan klik 'Proceed' untuk melanjutkan ke tahap deliver. Jika tidak, klik 'Abort' untuk menghentikan proses."
             }
         }
